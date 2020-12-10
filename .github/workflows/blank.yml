@@ -29,16 +29,16 @@ jobs:
           
       - name: Configure the CLI
         run: |
-          ./jfrog rt c import ${{ secrets. JF_ARTIFACTORY_SECRET}}
+          ./jfrog rt c import ${{ secrets.JF_ARTIFACTORY_SECRET}}
                 
       - name: Build the docker images
         run: |
-          docker login katc101.jfrog.io -u ${{ secrets. JF_ARTIFACTORY_USER}} -p ${{ secrets. JF_ARTIFACTORY_PASSWORD}}
-          docker build --tag katc101.jfrog.io/docker/my-docker-image:latest ./sample-projects/docker-example
+          docker login gssandbox.jfrog.io -u ${{ secrets.JF_ARTIFACTORY_USER}} -p ${{ secrets.JF_ARTIFACTORY_PASSWORD}}
+          docker build --tag gssandbox.jfrog.io/docker/my-docker-image:latest ./sample-projects/docker-example
       
       - name: Docker push with JFrog CLI
         run: |
-          ./jfrog rt docker-push katc101.jfrog.io/docker/my-docker-image:latest docker --build-name=devops101-docker --build-number=${{ github.run_number }}
+          ./jfrog rt docker-push gssandbox.jfrog.io/docker/my-docker-image:latest docker --build-name=devops101-docker --build-number=${{ github.run_number }}
   
       - name: Collect the environment variables and create the build info 
         run: |
